@@ -1,8 +1,9 @@
 'use strict';
 
 var express = require('express');
-var jwt = require('express-jwt');
-var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
+var ejwt = require('express-jwt');
+var auth = ejwt({secret: 'SECRET', userProperty: 'payload'});
+var jwt = require('jsonwebtoken');
 var Posts = require('./Posts');
 var router = express.Router();
 
@@ -18,6 +19,12 @@ router.get('/', auth, function(req, res, next) {
     if(err) { return handleError(res, err); }
     return res.status(200).json(posts);
   });
+});
+
+router.get('/get-token', function(req, res, next) {
+  var token = jwt.sign({username: 'koti'}, 'SECRET');
+  console.log('token : '+token);
+  res.send({token: token});
 });
 
 module.exports = router;

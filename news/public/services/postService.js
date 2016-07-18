@@ -12,6 +12,7 @@ app.factory('posts', ['$http','auth', function($http, auth){
   };
 
   o.create = function(post) {
+  console.log(post);
   return $http.post('/api/v1/post', post,{
     headers: {Authorization: 'Bearer '+auth.getToken()}
   }).success(function(data){

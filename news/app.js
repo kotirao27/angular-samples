@@ -1,4 +1,8 @@
 'use strict';
+
+var jwt = require('jsonwebtoken');
+var expressJwt = require('express-jwt');
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -32,6 +36,7 @@ app.use(passport.initialize());
 
 app.use('/', routes);
 app.use('/api/v1/post', require('./models/posts/index'));
+app.use('/api/v1/post/get-token', require('./models/posts/index'));
 app.use('/api/v1/register', require('./models/userregister/index'));
 app.use('/api/v1/login', require('./models/userlogin/index'));
 
