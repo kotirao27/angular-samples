@@ -26,5 +26,6 @@
     "request": "^2.73.0",
     "serve-favicon": "~2.3.0",
     "superagent": "^2.1.0"
+    
   }
 }

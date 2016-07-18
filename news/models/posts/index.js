@@ -23,7 +23,7 @@ router.get('/', auth, function(req, res, next) {
 
 router.get('/get-token', function(req, res, next) {
   var token = jwt.sign({username: 'koti'}, 'SECRET');
-  console.log('token : '+token);
+  console.log('token  : '+token);
   res.send({token: token});
 });
 
