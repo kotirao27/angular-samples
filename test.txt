@@ -1,0 +1,98 @@
+package com.sc.document;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+
+public class Test {
+
+
+
+	public static void main(String args[]) {
+
+		int[] attr = new int[] {2,5,6,7};
+		/**
+		 *  read input, meru rayandi
+		 * 
+		 */
+		List<List<Integer>> list = new ArrayList<>();
+		permute(attr,0, list);
+		getMaxPrize(list, attr);
+
+	}
+
+	static void permute(int[] a, int k, List list) 
+	{
+
+		if (k == a.length) 
+		{
+			ArrayList<Integer> childList = new ArrayList<>();
+			for (int i = 0; i < a.length; i++) 
+			{
+				childList.add(a[i]);
+			}
+			list.add(childList);
+		} 
+		else 
+		{
+			for (int i = k; i < a.length; i++) 
+			{
+				int temp = a[k];
+				a[k] = a[i];
+				a[i] = temp;
+
+				permute(a, k + 1, list);
+
+				temp = a[k];
+				a[k] = a[i];
+				a[i] = temp;
+			}
+		}
+
+	}
+	
+	private static void getMaxPrize(List<List<Integer>> list, int[] attr) {
+		List<Long> sumList = new ArrayList<>();
+
+		for(int l=0;l<list.size() ;l ++) {
+			List<Integer> tempList = new ArrayList<>();
+			for(int att: attr) {
+				tempList.add(att);
+			}
+			long sum = 0;
+
+			for(int p = 0;p<list.get(l).size();p++) {
+				int value = list.get(l).get(p);
+				int index = tempList.indexOf(value);
+
+				if(index > 0 && index < tempList.size() -1) {
+					if(tempList.get(index + 1) > tempList.get(index - 1)) {
+						sum = sum+ (value * tempList.get(index + 1))+ tempList.get(index - 1);
+					}
+					else {
+						sum = sum+ (value * tempList.get(index - 1))+ tempList.get(index + 1);
+					}
+				}
+				if(tempList.size() == 1) {
+					sum = sum + value;
+				}
+
+				if(tempList.size() ==2) {
+					sum = sum + (tempList.get(0) * tempList.get(1) );
+				}
+
+				tempList.remove(index);
+
+			}
+			sumList.add(sum);
+
+		}
+
+		Collections.sort(sumList);
+
+		System.out.println(sumList.get(sumList.size()-1));
+
+	}
+
+}
